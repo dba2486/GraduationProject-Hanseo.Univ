@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
+from django.conf.urls import include
+from django.conf import settings
+from SuccessPJT import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('main.urls')),
+    path('', RedirectView.as_view(url='/main/')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup', views.CreateUserView.as_view(), name='signup'),
+    path('accounts/login/done', views.RegisterdView.as_view(), name= 'create_user_done'),
+    path('accounts/password_resets/', views.pwreset, name='reset'),
 ]
